@@ -1,0 +1,553 @@
+/* Página completa */
+
+.diagram-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra superior */
+
+.diagram-header {
+  height: 70px;
+  flex-shrink: 0;
+  background: #1e293b;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+}
+
+.diagram-header h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+/* Contenedor de barra lateral y lienzo */
+
+.diagram-workspace {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+/* Barra lateral */
+
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background: #f8fafc;
+  border-right: 1px solid #cbd5e1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 18px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.sidebar-content {
+  padding: 16px;
+}
+
+.sidebar-section-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #64748b;
+  margin: 0 0 15px;
+}
+
+/* Plantilla visual de clase */
+
+.sidebar-class {
+  width: 180px;
+  background: white;
+  border: 2px solid #334155;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+
+.sidebar-class:active {
+  cursor: grabbing;
+}
+
+.sidebar-class-name {
+  background: #334155;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.sidebar-class-attributes {
+  padding: 10px;
+  font-size: 12px;
+  color: #334155;
+}
+
+.sidebar-class-attributes div {
+  padding: 3px 0;
+}
+
+.sidebar-help {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+/* Lienzo React Flow */
+
+.diagram-canvas {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  background: #f8fafc;
+}
+
+/* Fondo oscuro detrás del formulario */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+/* Ventana compacta y rectangular */
+
+.class-modal {
+  width: 380px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  color: #1e293b;
+}
+
+/* Encabezado */
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 26px;
+  cursor: pointer;
+  color: #64748b;
+}
+
+/* Formulario */
+
+.class-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.class-modal label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.class-modal input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #1e293b;
+  outline: none;
+}
+
+.class-modal input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.modal-description {
+  color: #64748b;
+  font-size: 12px;
+  margin: 0;
+}
+
+.modal-error {
+  color: #dc2626;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Botones */
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn-cancel,
+.btn-create {
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-create {
+  background: #2563eb;
+  color: #ffffff;
+  border: 1px solid #2563eb;
+}
+
+.btn-create:hover {
+  background: #1d4ed8;
+}
+
+.btn-cancel:disabled,
+.btn-create:disabled,
+.modal-close:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   EDITOR DE CLASES
+========================================= */
+
+.class-editor-modal {
+  width: 480px;
+  max-width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+
+  background: #ffffff;
+  color: #1e293b;
+
+  border-radius: 10px;
+  padding: 24px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.editor-subtitle {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* Nombre de la clase */
+
+.editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.editor-field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.editor-field input {
+  width: 100%;
+  padding: 11px 12px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+
+  background: #f8fafc;
+  color: #334155;
+
+  font-size: 14px;
+}
+
+/* Encabezado de atributos */
+
+.editor-attributes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.editor-attributes-header h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.editor-count {
+  background: #dbeafe;
+  color: #1d4ed8;
+
+  padding: 5px 10px;
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Lista */
+
+.editor-attributes-list {
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.editor-attribute {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.editor-attribute:last-child {
+  border-bottom: none;
+}
+
+.editor-attribute-icon {
+  width: 20px;
+  text-align: center;
+  color: #64748b;
+}
+
+.editor-attribute-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.editor-attribute-info strong {
+  font-size: 13px;
+}
+
+.editor-attribute-info small {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.editor-icon-button {
+  background: transparent;
+  border: none;
+  padding: 5px;
+
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.editor-icon-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.editor-empty {
+  text-align: center;
+  padding: 25px 10px;
+
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* Botón agregar */
+
+.editor-add-button {
+  width: 100%;
+
+  margin-top: 15px;
+  padding: 12px;
+
+  border: 1px dashed #93c5fd;
+  border-radius: 6px;
+
+  background: #eff6ff;
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.editor-add-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Formulario para agregar atributos */
+
+.attribute-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin-top: 18px;
+  padding: 16px;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.attribute-form h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: #1e293b;
+}
+
+.attribute-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.attribute-form input[type="text"],
+.attribute-form input[type="number"],
+.attribute-form select {
+  width: 100%;
+  padding: 10px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+
+  background: white;
+  color: #1e293b;
+
+  font-size: 13px;
+}
+
+.attribute-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-top: 12px;
+  padding: 12px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.attribute-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.attribute-checkboxes input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2563eb;
+}
+
+/* Pantalla de proyectos */
+
+.projects-page {
+  min-height: 100vh;
+  background: #f1f5f9;
+}
+
+.projects-header {
+  background: #1e293b;
+  color: white;
+  padding: 20px 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.projects-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+  padding: 30px;
+}
+
+.projects-section {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid #cbd5e1;
+  min-width: 0;
+}
+
+.projects-section h2 {
+  margin-top: 0;
+  color: #1e293b;
+}
+
+.project-card {
+  padding: 20px;
+  margin-top: 15px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.project-card h3 {
+  margin-top: 0;
+}
+
+.project-diagram-link {
+  display: block;
+  margin-top: 10px;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .projects-container {
+    grid-template-columns: 1fr;
+  }
+}
